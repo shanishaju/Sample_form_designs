@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beginner's Guide - Testing Leads Plugin</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+            line-height: 1.6;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            border-bottom: 3px solid #007cba;
+            padding-bottom: 10px;
+        }
+        .step {
+            margin: 25px 0;
+            padding: 20px;
+            border-left: 4px solid #007cba;
+            background-color: #f8f9fa;
+        }
+        .step h3 {
+            margin-top: 0;
+            color: #007cba;
+        }
+        .screenshot-placeholder {
+            background-color: #e9ecef;
+            border: 2px dashed #6c757d;
+            padding: 20px;
+            text-align: center;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+        .code-block {
+            background-color: #2d3748;
+            color: #e2e8f0;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+            margin: 10px 0;
+        }
+        .success {
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        .warning {
+            background-color: #fff3cd;
+            border: 1px solid #ffeaa7;
+            color: #856404;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        .error {
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        .important {
+            background-color: #e7f3ff;
+            border: 1px solid #b3d9ff;
+            color: #004085;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        ul, ol {
+            padding-left: 25px;
+        }
+        .next-step {
+            background-color: #28a745;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 10px 0;
+        }
+        .next-step:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔰 Beginner's Guide: Testing Your Echo5 Leads Plugin</h1>
+        
+        <div class="important">
+            <strong>📋 What We're Going to Test:</strong><br>
+            1. WordPress admin area to see if plugin is working<br>
+            2. Contact form to capture leads<br>
+            3. Check if leads appear in your admin panel<br>
+            4. View lead details and activities
+        </div>
+
+        <!-- Step 1 -->
+        <div class="step">
+            <h3>STEP 1: Check if Your Plugin is Active</h3>
+            <ol>
+                <li>Open your web browser</li>
+                <li>Go to: <code>http://localhost/wordpress/wp-admin</code></li>
+                <li>Login with your WordPress username and password</li>
+                <li>Look in the left sidebar for <strong>"Echo5 Leads"</strong></li>
+            </ol>
+            
+            <div class="success">
+                ✅ <strong>If you see "Echo5 Leads" in the sidebar:</strong> Plugin is active! Continue to Step 2.
+            </div>
+            
+            <div class="error">
+                ❌ <strong>If you DON'T see "Echo5 Leads":</strong><br>
+                1. Go to Plugins → Installed Plugins<br>
+                2. Find "Echo5 Leads Manager"<br>
+                3. Click "Activate"<br>
+                4. Refresh the page
+            </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="step">
+            <h3>STEP 2: Check Plugin Settings</h3>
+            <ol>
+                <li>Click on <strong>"Echo5 Leads"</strong> in the left sidebar</li>
+                <li>Click on <strong>"Settings"</strong></li>
+                <li>Leave "Webhook Secret" empty for now (easier for testing)</li>
+                <li>Set "SLA Hours" to 4</li>
+                <li>Add your email in "Manager Email(s)"</li>
+                <li>Click <strong>"Save Settings"</strong></li>
+            </ol>
+            
+            <div class="screenshot-placeholder">
+                You should see a settings page with fields for Webhook Secret, SLA Hours, etc.
+            </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="step">
+            <h3>STEP 3: Create a Simple Contact Form</h3>
+            <p>We'll use Contact Form 7 since you mentioned you have it:</p>
+            
+            <ol>
+                <li>Go to <strong>Contact → Contact Forms</strong></li>
+                <li>Click <strong>"Add New"</strong></li>
+                <li>Give it a title like "Lead Test Form"</li>
+                <li>Replace the form code with this:</li>
+            </ol>
+            
+            <div class="code-block">&lt;label&gt; Your Name (required)
+    [text* your-name] &lt;/label&gt;
+
+&lt;label&gt; Your Email (required)
+    [email* your-email] &lt;/label&gt;
+
+&lt;label&gt; Your Phone
+    [tel your-phone] &lt;/label&gt;
+
+&lt;label&gt; Your City
+    [text your-city] &lt;/label&gt;
+
+&lt;label&gt; Your Message
+    [textarea your-message] &lt;/label&gt;
+
+[submit "Send"]</div>
+            
+            <ol start="5">
+                <li>Click <strong>"Save"</strong></li>
+                <li>Copy the shortcode (something like <code>[contact-form-7 id="123"]</code>)</li>
+            </ol>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="step">
+            <h3>STEP 4: Add Form to a Page</h3>
+            <ol>
+                <li>Go to <strong>Pages → Add New</strong></li>
+                <li>Title: "Test Lead Form"</li>
+                <li>In the content area, paste your Contact Form 7 shortcode</li>
+                <li>Click <strong>"Publish"</strong></li>
+                <li>Click <strong>"View Page"</strong> to see your form</li>
+            </ol>
+            
+            <div class="success">
+                You should now see a contact form on your page with name, email, phone, city, and message fields.
+            </div>
+        </div>
+
+        <!-- Step 5 -->
+        <div class="step">
+            <h3>STEP 5: Test the Form (The Fun Part!)</h3>
+            <ol>
+                <li>Fill out your form with test data:</li>
+                <ul>
+                    <li><strong>Name:</strong> John Doe</li>
+                    <li><strong>Email:</strong> john.doe@test.com</li>
+                    <li><strong>Phone:</strong> 555-123-4567</li>
+                    <li><strong>City:</strong> Test City</li>
+                    <li><strong>Message:</strong> This is a test message</li>
+                </ul>
+                <li>Click <strong>"Send"</strong></li>
+                <li>You should see a success message</li>
+            </ol>
+            
+            <div class="warning">
+                <strong>💡 Tip:</strong> Try submitting 2-3 different test leads with different names and emails.
+            </div>
+        </div>
+
+        <!-- Step 6 -->
+        <div class="step">
+            <h3>STEP 6: Check if Leads Were Captured</h3>
+            <ol>
+                <li>Go back to your WordPress admin: <code>http://localhost/wordpress/wp-admin</code></li>
+                <li>Click <strong>"Echo5 Leads"</strong> in the sidebar</li>
+                <li>Click <strong>"Leads"</strong></li>
+                <li>You should see your test leads in a table!</li>
+            </ol>
+            
+            <div class="success">
+                ✅ <strong>If you see your leads:</strong> Congratulations! Your plugin is working perfectly!
+            </div>
+            
+            <div class="error">
+                ❌ <strong>If you don't see any leads:</strong> See troubleshooting section below.
+            </div>
+        </div>
+
+        <!-- Step 7 -->
+        <div class="step">
+            <h3>STEP 7: View Lead Details</h3>
+            <ol>
+                <li>In the leads list, click <strong>"View Details"</strong> on one of your leads</li>
+                <li>You should see all the lead information</li>
+                <li>Look for the <strong>"Activities"</strong> section</li>
+                <li>You should see notes like "Attribution v1" and possibly "UTM snapshot"</li>
+            </ol>
+            
+            <div class="success">
+                This shows that the new features are working - attribution tracking and activity logging!
+            </div>
+        </div>
+
+        <!-- Troubleshooting -->
+        <div class="step">
+            <h3>🔧 TROUBLESHOOTING</h3>
+            
+            <h4>Problem: No leads appear after form submission</h4>
+            <div class="error">
+                <strong>Solutions to try:</strong><br>
+                1. Check if Contact Form 7 plugin is active<br>
+                2. Go to Settings → Permalinks → Click "Save Changes"<br>
+                3. Check WordPress error logs (ask your hosting provider)<br>
+                4. Try deactivating and reactivating the Echo5 Leads plugin
+            </div>
+            
+            <h4>Problem: Form doesn't submit</h4>
+            <div class="error">
+                <strong>Solutions to try:</strong><br>
+                1. Check that Contact Form 7 is properly installed<br>
+                2. Make sure the form shortcode is correct<br>
+                3. Check browser console for JavaScript errors (F12 key)
+            </div>
+            
+            <h4>Problem: Can't see Echo5 Leads in admin</h4>
+            <div class="error">
+                <strong>Solutions to try:</strong><br>
+                1. Go to Plugins → Installed Plugins<br>
+                2. Find "Echo5 Leads Manager" and click "Activate"<br>
+                3. If it's not there, re-upload the plugin folder
+            </div>
+        </div>
+
+        <!-- Success -->
+        <div class="step">
+            <h3>🎉 SUCCESS! What You've Accomplished</h3>
+            <div class="success">
+                If everything worked, you now have:<br>
+                ✅ A working lead capture system<br>
+                ✅ Contact forms that automatically save leads<br>
+                ✅ A WordPress admin interface to manage leads<br>
+                ✅ Automatic lead tracking and attribution<br>
+                ✅ Activity logging for each lead
+            </div>
+            
+            <div class="important">
+                <strong>🚀 Next Steps:</strong><br>
+                1. Test with different forms<br>
+                2. Try the Postman tests (for API testing)<br>
+                3. Add more form fields like checkboxes<br>
+                4. Set up email notifications<br>
+                5. Export leads to CSV
+            </div>
+        </div>
+
+        <!-- Quick Test Checklist -->
+        <div class="step">
+            <h3>📋 Quick Test Checklist</h3>
+            <div class="important">
+                <input type="checkbox"> Plugin shows in WordPress admin sidebar<br>
+                <input type="checkbox"> Settings page is accessible<br>
+                <input type="checkbox"> Contact form created and published<br>
+                <input type="checkbox"> Form submits successfully<br>
+                <input type="checkbox"> Leads appear in Echo5 Leads → Leads<br>
+                <input type="checkbox"> Lead details show properly<br>
+                <input type="checkbox"> Activities/notes are logged<br>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
